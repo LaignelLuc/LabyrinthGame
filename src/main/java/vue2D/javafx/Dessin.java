@@ -1,10 +1,11 @@
-package vue2D.javafx;
+  package vue2D.javafx;
 
 import java.util.Collection;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import labyrinthe.ESalle;
 import labyrinthe.ILabyrinthe;
 import labyrinthe.ISalle;
 import vue2D.AVue;
@@ -34,7 +35,9 @@ public class Dessin extends Canvas {
     private Image escalierD;
     private int tailleLinkH = 6;
     private int tailleLinkL = 2;
-
+    
+    private boolean[][] grille;
+    
     public Dessin(ILabyrinthe labyrinthe, Collection<ISprite> sprites) {
         this.labyrinthe = labyrinthe;
         this.sprites = sprites;
@@ -46,8 +49,15 @@ public class Dessin extends Canvas {
         setWidth(largeur * unite);
         setHeight(hauteur * unite);
         tampon = this.getGraphicsContext2D();
+
+        grille = new boolean[largeur][hauteur];
+        for (ISalle s : labyrinthe.getEtageCourant()) {
+            grille[s.getX()][s.getY()] = true;
+        }
+
         chargementImages();
         dessinFond();
+        dessinSalles(labyrinthe.getEtageCourant());
     }
 
     public void chargementImages() {
@@ -70,7 +80,40 @@ public class Dessin extends Canvas {
     }
 
     public void dessinSalle(ISalle s, Color c) {
-        // ...
+        int x = s.getX();
+        int y = s.getY();
+        int px = x * unite;
+        int py = y * unite;
+
+        Color couleur = c;
+        if (s.getType() == ESalle.ENTREE) {
+            couleur = Color.rgb(100, 200, 100);
+        } else if (s.getType() == ESalle.SORTIE) {
+            couleur = Color.rgb(200, 100, 100);
+        }
+
+        int marge = unite / 6;
+        int taille = unite - 2 * marge;
+
+        tampon.setFill(couleur);
+        tampon.fillRect(px + marge, py + marge, taille, taille);
+
+        if (x + 1 < largeur && grille[x + 1][y]) {
+            tampon.fillRect(px + unite - marge, py + unite / 2 - tailleLinkH / 2,
+                    2 * marge, tailleLinkH);
+        }
+
+        if (y + 1 < hauteur && grille[x][y + 1]) {
+            tampon.fillRect(px + unite / 2 - tailleLinkL / 2, py + unite - marge,
+                    tailleLinkL, 2 * marge);
+        }
+
+        switch (s.getType()) {
+            case ESCALIER_MONTANT->
+                tampon.drawImage(escalierM, px + marge, py + marge, taille, taille);
+            case ESCALIER_DESCENDANT->
+                tampon.drawImage(escalierD, px + marge, py + marge, taille, taille);
+        }
     }
 
     public void dessinPlusCourtChemin(ISprite p) {

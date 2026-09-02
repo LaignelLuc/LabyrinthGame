@@ -26,10 +26,8 @@ public class Vue extends AVue implements IVue {
 
     @Override
     public void dessiner() {
-        // recopie du fond (image); murs + salles
         dessin.dessinFond();
-        // dessin des salles
-        // ...
+        dessin.dessinSalles(labyrinthe.getEtageCourant());
     }
 
 }

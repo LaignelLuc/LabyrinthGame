@@ -39,7 +39,7 @@ public class Etage extends ArrayList<ISalle> implements IEtage {
         // salles
         for (String ligne : lignes) {
             mots = ligne.split(" ");
-            ESalle type = giveTypeFromLetter(mots[3]);
+            ESalle type = giveTypeFromLetter(mots[2]);
             Salle salleActuelle = new Salle(this, Integer.parseInt(mots[0]),
                     Integer.parseInt(mots[1]), type);
             this.add(salleActuelle);
@@ -47,20 +47,20 @@ public class Etage extends ArrayList<ISalle> implements IEtage {
     }
 
     private ESalle giveTypeFromLetter(String type) {
-        switch (type) {
-            case "N" :
-                return ESalle.NORMALE;
-            case "E" :
-                return ESalle.ENTREE;
-            case "S" :
-                return ESalle.SORTIE;
-            case "M":
-                return ESalle.ESCALIER_MONTANT;
-            case "D" :
-                return ESalle.ESCALIER_DESCENDANT;
-            default:
-                return ESalle.NORMALE;
-        }
+        return switch (type) {
+            case "N" ->
+                ESalle.NORMALE;
+            case "E" ->
+                ESalle.ENTREE;
+            case "S" ->
+                ESalle.SORTIE;
+            case "M"->
+                ESalle.ESCALIER_MONTANT;
+            case "D" ->
+                ESalle.ESCALIER_DESCENDANT;
+            default ->
+                ESalle.NORMALE;
+        };
     }
 
     @Override
