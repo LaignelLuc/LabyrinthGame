@@ -3,6 +3,8 @@ package labyrinthe;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import personnages.IPersonnage;
 
 /**
@@ -27,7 +29,55 @@ public class Labyrinthe extends ArrayList<ISalle> implements ILabyrinthe {
 
     @Override
     public Collection<ISalle> sallesAccessibles(IPersonnage heros) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Set salleAccessibles = new HashSet();
+        ISalle salleHeros = heros.getPosition();
+        
+        ISalle salleNord = new Salle(salleHeros.getEtage(),
+        salleHeros.getX(),salleHeros.getY()+1, ESalle.NORMALE);
+        
+        ISalle salleSud = new Salle(salleHeros.getEtage(),
+        salleHeros.getX(),salleHeros.getY()-1, ESalle.NORMALE);
+        
+        ISalle salleEst = new Salle(salleHeros.getEtage(),
+        salleHeros.getX()+1,salleHeros.getY(), ESalle.NORMALE);
+        
+        ISalle salleOuest = new Salle(salleHeros.getEtage(),
+        salleHeros.getX()-1,salleHeros.getY()+1, ESalle.NORMALE);
+        
+        if(this.contains(salleNord)){
+            this.add(salleNord);
+        }
+        if(this.contains(salleSud)){
+            this.add(salleSud);
+        }
+        if(this.contains(salleEst)){
+            this.add(salleEst);
+        }
+        if(this.contains(salleOuest)){
+            this.add(salleOuest);
+        }
+        
+        if(salleHeros.getType()==ESalle.ESCALIER_MONTANT){
+            Etage etageAuDessus = new Etage(etageCourant.getNum()+1);
+            
+            ISalle salleAuDessus = new Salle(etageAuDessus,
+            salleHeros.getX(),salleHeros.getY(),ESalle.ESCALIER_DESCENDANT);
+            
+            if(this.contains(salleAuDessus)){
+                salleAccessibles.add(salleAuDessus);
+            }
+        }
+        if(salleHeros.getType()==ESalle.ESCALIER_DESCENDANT){
+            Etage etageEnDessous = new Etage(etageCourant.getNum()-1);
+            
+            ISalle salleEnDessous = new Salle(etageEnDessous,
+            salleHeros.getX(),salleHeros.getY(),ESalle.ESCALIER_MONTANT);
+            
+            if(this.contains(salleEnDessous)){
+                salleAccessibles.add(salleEnDessous);
+            }
+        }
+        return salleAccessibles;
     }
 
     @Override

@@ -8,12 +8,12 @@ import java.util.Objects;
  */
 public class Salle implements ISalle {
 
-    private Etage etage;
+    private IEtage etage;
     private int x;
     private int y;
     private ESalle type;
 
-    public Salle(Etage unEtage, int unX, int unY, ESalle unType) {
+    public Salle(IEtage unEtage, int unX, int unY, ESalle unType) {
         etage = unEtage;
         x = unX;
         y = unY;
@@ -36,7 +36,7 @@ public class Salle implements ISalle {
     }
 
     @Override
-    public Etage getEtage() {
+    public IEtage getEtage() {
         return etage;
     }
 
@@ -59,7 +59,7 @@ public class Salle implements ISalle {
             }
         } else {
             if(autre.getEtage().getNum() == etage.getNum() &&
-                    x - autreX == 1 || x - autreX == -1 &&
+                    x - autreX == 1 || x - autreX == -1 ^ 
                     y - autreY == 1 || y - autreY == -1){
                 return true;
             }

@@ -33,6 +33,7 @@ public class Dessin extends Canvas {
     private Image solImage;
     private Image escalierM;
     private Image escalierD;
+    private Image marbreImage;
     private int tailleLinkH = 6;
     private int tailleLinkL = 2;
     
@@ -65,6 +66,7 @@ public class Dessin extends Canvas {
         solImage = new Image("file:icons/pyramide.png");
         escalierM = new Image("file:icons/up.gif");
         escalierD = new Image("file:icons/down.gif");
+        marbreImage = new Image("file:icons/marbre.jpg");
     }
 
     public void dessinFond() {
@@ -92,27 +94,17 @@ public class Dessin extends Canvas {
             couleur = Color.rgb(200, 100, 100);
         }
 
-        int marge = unite / 6;
-        int taille = unite - 2 * marge;
 
         tampon.setFill(couleur);
-        tampon.fillRect(px + marge, py + marge, taille, taille);
-
-        if (x + 1 < largeur && grille[x + 1][y]) {
-            tampon.fillRect(px + unite - marge, py + unite / 2 - tailleLinkH / 2,
-                    2 * marge, tailleLinkH);
-        }
-
-        if (y + 1 < hauteur && grille[x][y + 1]) {
-            tampon.fillRect(px + unite / 2 - tailleLinkL / 2, py + unite - marge,
-                    tailleLinkL, 2 * marge);
-        }
+        tampon.fillRect(px, py, unite, unite);
 
         switch (s.getType()) {
             case ESCALIER_MONTANT->
-                tampon.drawImage(escalierM, px + marge, py + marge, taille, taille);
+                tampon.drawImage(escalierM, px, py, unite, unite);
             case ESCALIER_DESCENDANT->
-                tampon.drawImage(escalierD, px + marge, py + marge, taille, taille);
+                tampon.drawImage(escalierD, px, py, unite, unite);
+            case NORMALE ->
+                tampon.drawImage(marbreImage, px, py,unite,unite);
         }
     }
 
