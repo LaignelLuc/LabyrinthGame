@@ -58,9 +58,9 @@ public class Salle implements ISalle {
                 return true;
             }
         } else {
-            if(autre.getEtage().getNum() == etage.getNum() &&
-                    x - autreX == 1 || x - autreX == -1 ^ 
-                    y - autreY == 1 || y - autreY == -1){
+            if (autre.getEtage().getNum() == etage.getNum()
+                    && x - autreX == 1 || x - autreX == -1
+                    ^ y - autreY == 1 || y - autreY == -1) {
                 return true;
             }
         }
@@ -70,7 +70,7 @@ public class Salle implements ISalle {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.etage);
+        hash = 47 * hash + (this.etage != null ? this.etage.getNum() : 0);
         hash = 47 * hash + this.x;
         hash = 47 * hash + this.y;
         return hash;
@@ -87,6 +87,7 @@ public class Salle implements ISalle {
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final Salle other = (Salle) obj;
         if (this.x != other.x) {
             return false;
@@ -94,7 +95,11 @@ public class Salle implements ISalle {
         if (this.y != other.y) {
             return false;
         }
-        return Objects.equals(this.etage, other.etage);
+
+        if (this.etage == null || other.etage == null) {
+            return false;
+        }
+        return this.etage.getNum() == other.etage.getNum();
     }
 
 }

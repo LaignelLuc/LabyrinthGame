@@ -14,15 +14,17 @@ import personnages.IPersonnage;
 public class Labyrinthe extends ArrayList<ISalle> implements ILabyrinthe {
     
     private IEtage etageCourant = new Etage();
-    private IEtage etage2 = new Etage(2);
     
     
     public Labyrinthe() {
+        IEtage etage1 = new Etage(1);
+        IEtage etage2 = new Etage(2);
         try {
-            etageCourant.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage1N.txt");
-            this.addAll(etageCourant);
+            etage1.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage1N.txt");
+            this.addAll(etage1);
             etage2.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage2N.txt");
             this.addAll(etage2);
+            etageCourant = etage1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,54 +32,33 @@ public class Labyrinthe extends ArrayList<ISalle> implements ILabyrinthe {
 
     @Override
     public Collection<ISalle> sallesAccessibles(IPersonnage heros) {
-        Set salleAccessibles = new HashSet();
+        Set<ISalle> salleAccessibles = new HashSet<>();
         ISalle salleHeros = heros.getPosition();
-        
-        ISalle salleNord = new Salle(salleHeros.getEtage(),
-        salleHeros.getX(),salleHeros.getY()+1, ESalle.NORMALE);
-        
-        ISalle salleSud = new Salle(salleHeros.getEtage(),
-        salleHeros.getX(),salleHeros.getY()-1, ESalle.NORMALE);
-        
-        ISalle salleEst = new Salle(salleHeros.getEtage(),
-        salleHeros.getX()+1,salleHeros.getY(), ESalle.NORMALE);
-        
-        ISalle salleOuest = new Salle(salleHeros.getEtage(),
-        salleHeros.getX()-1,salleHeros.getY()+1, ESalle.NORMALE);
-        
-        if(this.contains(salleNord)){
-            this.add(salleNord);
-        }
-        if(this.contains(salleSud)){
-            this.add(salleSud);
-        }
-        if(this.contains(salleEst)){
-            this.add(salleEst);
-        }
-        if(this.contains(salleOuest)){
-            this.add(salleOuest);
+
+        ISalle salleNord = new Salle(salleHeros.getEtage(), salleHeros.getX(), salleHeros.getY()+1, ESalle.NORMALE);
+        ISalle salleSud  = new Salle(salleHeros.getEtage(), salleHeros.getX(), salleHeros.getY()-1, ESalle.NORMALE);
+        ISalle salleEst  = new Salle(salleHeros.getEtage(), salleHeros.getX()+1, salleHeros.getY(), ESalle.NORMALE);
+        ISalle salleOuest = new Salle(salleHeros.getEtage(), salleHeros.getX()-1, salleHeros.getY(), ESalle.NORMALE);
+
+        ISalle salleAuDessus = null;
+        if (salleHeros.getType() == ESalle.ESCALIER_MONTANT) {
+            salleAuDessus = new Salle(new Etage(salleHeros.getEtage().getNum() + 1), salleHeros.getX(), salleHeros.getY(), ESalle.ESCALIER_DESCENDANT);
         }
         
-        if(salleHeros.getType()==ESalle.ESCALIER_MONTANT){
-            Etage etageAuDessus = new Etage(etageCourant.getNum()+1);
-            
-            ISalle salleAuDessus = new Salle(etageAuDessus,
-            salleHeros.getX(),salleHeros.getY(),ESalle.ESCALIER_DESCENDANT);
-            
-            if(this.contains(salleAuDessus)){
-                salleAccessibles.add(salleAuDessus);
+        ISalle salleEnDessous = null;
+        if (salleHeros.getType() == ESalle.ESCALIER_DESCENDANT) {
+            salleEnDessous = new Salle(new Etage(salleHeros.getEtage().getNum() - 1), salleHeros.getX(), salleHeros.getY(), ESalle.ESCALIER_MONTANT);
+        }
+
+        for (ISalle vraieSalle : this) { 
+            if (vraieSalle.equals(salleNord) || vraieSalle.equals(salleSud) || 
+                vraieSalle.equals(salleEst) || vraieSalle.equals(salleOuest) ||
+                vraieSalle.equals(salleAuDessus) || vraieSalle.equals(salleEnDessous)) {
+                
+                salleAccessibles.add(vraieSalle); 
             }
         }
-        if(salleHeros.getType()==ESalle.ESCALIER_DESCENDANT){
-            Etage etageEnDessous = new Etage(etageCourant.getNum()-1);
-            
-            ISalle salleEnDessous = new Salle(etageEnDessous,
-            salleHeros.getX(),salleHeros.getY(),ESalle.ESCALIER_MONTANT);
-            
-            if(this.contains(salleEnDessous)){
-                salleAccessibles.add(salleEnDessous);
-            }
-        }
+        
         return salleAccessibles;
     }
 

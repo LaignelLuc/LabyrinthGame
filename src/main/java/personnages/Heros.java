@@ -12,22 +12,27 @@ import labyrinthe.ISalle;
  * @author llaignel
  */
 public class Heros extends APersonnage {
+
     private ISalle salleChoisie;
-    
-    public Heros(ISalle uneSalle){
+
+    public Heros(ISalle uneSalle) {
         position = uneSalle;
     }
-    
+
     @Override
-    public ISalle faitSonChoix(Collection<ISalle> sallesAccessibles){
-        if(sallesAccessibles.contains(salleChoisie)){
-            position = salleChoisie;
-            return position;
+    public ISalle faitSonChoix(Collection<ISalle> sallesAccessibles) {
+        if (salleChoisie != null) {
+            sallesAccessibles.stream()
+                    .filter(s -> s.equals(salleChoisie))
+                    .findFirst()
+                    .ifPresent(s -> position = s);
+
+            salleChoisie = null;
         }
         return position;
     }
-    
-    public void setSalleChoisie(ISalle salle){
+
+    public void setSalleChoisie(ISalle salle) {
         salleChoisie = salle;
     }
 }

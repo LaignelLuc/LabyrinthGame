@@ -1,4 +1,4 @@
-  package vue2D.javafx;
+package vue2D.javafx;
 
 import java.util.Collection;
 import javafx.scene.canvas.Canvas;
@@ -36,9 +36,9 @@ public class Dessin extends Canvas {
     private Image marbreImage;
     private int tailleLinkH = 6;
     private int tailleLinkL = 2;
-    
+
     private boolean[][] grille;
-    
+
     public Dessin(ILabyrinthe labyrinthe, Collection<ISprite> sprites) {
         this.labyrinthe = labyrinthe;
         this.sprites = sprites;
@@ -59,6 +59,7 @@ public class Dessin extends Canvas {
         chargementImages();
         dessinFond();
         dessinSalles(labyrinthe.getEtageCourant());
+        dessinSprites();
     }
 
     public void chargementImages() {
@@ -67,6 +68,12 @@ public class Dessin extends Canvas {
         escalierM = new Image("file:icons/up.gif");
         escalierD = new Image("file:icons/down.gif");
         marbreImage = new Image("file:icons/marbre.jpg");
+    }
+
+    public void dessinSprites() {
+        for (ISprite s : sprites) {
+            s.dessiner(tampon);
+        }
     }
 
     public void dessinFond() {
@@ -94,17 +101,16 @@ public class Dessin extends Canvas {
             couleur = Color.rgb(200, 100, 100);
         }
 
-
         tampon.setFill(couleur);
         tampon.fillRect(px, py, unite, unite);
 
         switch (s.getType()) {
-            case ESCALIER_MONTANT->
+            case ESCALIER_MONTANT ->
                 tampon.drawImage(escalierM, px, py, unite, unite);
-            case ESCALIER_DESCENDANT->
+            case ESCALIER_DESCENDANT ->
                 tampon.drawImage(escalierD, px, py, unite, unite);
             case NORMALE ->
-                tampon.drawImage(marbreImage, px, py,unite,unite);
+                tampon.drawImage(marbreImage, px, py, unite, unite);
         }
     }
 

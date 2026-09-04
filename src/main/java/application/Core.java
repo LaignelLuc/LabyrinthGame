@@ -3,7 +3,9 @@ package application;
 import java.util.Collection;
 import labyrinthe.ILabyrinthe;
 import labyrinthe.ISalle;
+import personnages.Heros;
 import vue2D.IVue;
+import vue2D.sprites.HerosSprite;
 import vue2D.sprites.ISprite;
 
 /**
@@ -11,6 +13,7 @@ import vue2D.sprites.ISprite;
  * @author arpecher
  */
 public class Core {
+
     ISprite heros;
     ILabyrinthe labyrinthe;
 
@@ -21,9 +24,9 @@ public class Core {
 
     protected void initSprites(IVue vue) {
         // creation du heros 
-        //Heros h = new personnages.Heros(labyrinthe.getEntree());
-        //this.heros = new HerosSprite(h, labyrinthe);
-        //vue.add(this.heros);
+        Heros h = new personnages.Heros(labyrinthe.getEntree());
+        this.heros = new HerosSprite(h, labyrinthe);
+        vue.add(this.heros);
     }
 
     protected void jeu(IVue vue) {
@@ -37,7 +40,7 @@ public class Core {
                 Collection<ISalle> sallesAccessibles = labyrinthe.sallesAccessibles(s);
                 destination = s.faitSonChoix(sallesAccessibles); // on demande au personnage de faire son choix de salle
                 s.setPosition(destination); // deplacement
-                
+
             }
             // detection des collisions
             boolean collision = false;
