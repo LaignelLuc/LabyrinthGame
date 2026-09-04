@@ -14,14 +14,15 @@ import personnages.IPersonnage;
 public class Labyrinthe extends ArrayList<ISalle> implements ILabyrinthe {
     
     private IEtage etageCourant = new Etage();
+    private IEtage etage2 = new Etage(2);
     
     
     public Labyrinthe() {
         try {
             etageCourant.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage1N.txt");
             this.addAll(etageCourant);
-            etageCourant.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage2N.txt");
-            this.addAll(etageCourant);
+            etage2.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage2N.txt");
+            this.addAll(etage2);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -26,4 +26,8 @@ public class Heros extends APersonnage {
         }
         return position;
     }
+    
+    public void setSalleChoisie(ISalle salle){
+        salleChoisie = salle;
+    }
 }
