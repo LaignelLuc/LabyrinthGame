@@ -20,6 +20,14 @@ public abstract class ASprite implements ISprite{
     private Image sprite;
     private IPersonnage personnage;
     
+    private int xPixCourant = -1;
+    private int yPixCourant = -1;
+    
+    private int xPixCible;
+    private int yPixCible;
+    
+    private static final int PAS = 2;
+    
     public ASprite(IPersonnage personnage,Image sprite){
         this.sprite = sprite;
         this.personnage = personnage;
@@ -27,9 +35,51 @@ public abstract class ASprite implements ISprite{
     
     @Override
     public void dessiner(GraphicsContext g){
-        ISalle positionPerso = this.getPosition();
-        g.drawImage(sprite, positionPerso.getX()*UNITE, positionPerso.getY()*UNITE,UNITE,UNITE);
+        mouvement();
+        g.drawImage(sprite, xPixCourant, yPixCourant,UNITE,UNITE);
     }
+    
+    public void mouvement(){
+        ISalle positionPerso = this.getPosition();
+        xPixCible = positionPerso.getX() * UNITE;
+        yPixCible = positionPerso.getY() * UNITE;
+
+        if (xPixCourant == -1) {
+            xPixCourant = xPixCible;
+            yPixCourant = yPixCible;
+        }
+
+        // Rapprochement vers la destination de 2px par 2px (axe X)
+        if (xPixCourant < xPixCible) {
+            xPixCourant += PAS;
+            if (xPixCourant > xPixCible) {
+                xPixCourant = xPixCible;
+            }
+        } else if (xPixCourant > xPixCible) {
+            xPixCourant -= PAS;
+            if (xPixCourant < xPixCible) {
+                xPixCourant = xPixCible;
+            }
+        }
+
+        // Rapprochement vers la destination de 2px par 2px (axe Y)
+        if (yPixCourant < yPixCible) {
+            yPixCourant += PAS;
+            if (yPixCourant > yPixCible) {
+                yPixCourant = yPixCible;
+            }
+        } else if (yPixCourant > yPixCible) {
+            yPixCourant -= PAS;
+            if (yPixCourant < yPixCible) {
+                yPixCourant = yPixCible;
+            }
+        }
+    }
+    
+    public boolean enDeplacement(){
+        return xPixCourant != xPixCible || yPixCourant != yPixCible;
+    }
+    
     
     @Override
     public void setCoordonnees(int xpix, int ypix){

@@ -34,6 +34,9 @@ public class HerosSprite extends ASprite implements EventHandler<KeyEvent> {
 
     @Override
     public ISalle faitSonChoix(Collection<ISalle> sallesAccessibles) {
+        if(enDeplacement()){
+            return getPosition();
+        }
         ISalle nouvellePos = this.hero.faitSonChoix(sallesAccessibles);
         if (nouvellePos.getEtage().getNum() != this.labyrinthe.getEtageCourant().getNum()) {
             this.labyrinthe.setEtageCourant(nouvellePos.getEtage());

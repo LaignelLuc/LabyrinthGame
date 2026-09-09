@@ -6,6 +6,14 @@
 
 ## 2 Septembre 2026
 - Objectif 1 complété
+- Le labyrinthe s'affiche sans problème.
 
 ## 3 Septembre 2026
 - Tâches jusqu'à l'exercice 11 (inclus)
+
+## 4 Septembre 2026
+- Objectif 2 terminé
+- Le personnage s'affiche, se déplace et peut changer d'étage
+
+## 8 Septembre 2026
+- Objectif 3 terminé

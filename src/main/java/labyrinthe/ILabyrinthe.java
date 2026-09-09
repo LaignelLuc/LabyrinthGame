@@ -16,4 +16,5 @@ public interface ILabyrinthe extends Collection<ISalle>{
     public IEtage getEtageCourant(); // accesseurs sur l'etage affiche
     public void setEtageCourant(IEtage etage);
     public Collection<ISalle> chemin(ISalle u, ISalle v); // un plus court chemin entre u et v
+    public ISalle getSalleAleatoire();// retourne une salle aléatoire du labyrinthe
 }

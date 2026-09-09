@@ -72,7 +72,9 @@ public class Dessin extends Canvas {
 
     public void dessinSprites() {
         for (ISprite s : sprites) {
-            s.dessiner(tampon);
+            if (s.getPosition().getEtage().getNum() == labyrinthe.getEtageCourant().getNum()) {
+                s.dessiner(tampon);
+            }
         }
     }
 
