@@ -17,8 +17,15 @@ import labyrinthe.IEtage;
  * @author INFO Professors team
  */
 public class Dessin extends Canvas {
-
+    
+    /**
+     * Liste des sprites des personnages.
+     */
     private Collection<ISprite> sprites;
+    
+    /**
+     * Taille des sprites.
+     */
     private int unite;
 
     // donnees labyrinthe labyrinthe
@@ -36,9 +43,17 @@ public class Dessin extends Canvas {
     private Image marbreImage;
     private int tailleLinkH = 6;
     private int tailleLinkL = 2;
-
+    
+    /**
+     * Grille pour aligner les salles du labyrinthe.
+     */
     private boolean[][] grille;
-
+    
+    /**
+     * Constructeur du dessin du labyrinthe.
+     * @param labyrinthe labyrinthe du jeu.
+     * @param sprites liste des sprites.
+     */
     public Dessin(ILabyrinthe labyrinthe, Collection<ISprite> sprites) {
         this.labyrinthe = labyrinthe;
         this.sprites = sprites;
@@ -61,7 +76,10 @@ public class Dessin extends Canvas {
         dessinSalles(labyrinthe.getEtageCourant());
         dessinSprites();
     }
-
+    
+    /**
+     * Fonction qui charge les images et sprites.
+     */
     public void chargementImages() {
         murImage = new Image("file:icons/mur0.gif");
         solImage = new Image("file:icons/pyramide.png");
@@ -69,7 +87,10 @@ public class Dessin extends Canvas {
         escalierD = new Image("file:icons/down.gif");
         marbreImage = new Image("file:icons/marbre.jpg");
     }
-
+    
+    /**
+     * Dessine les sprites.
+     */
     public void dessinSprites() {
         for (ISprite s : sprites) {
             if (s.getPosition().getEtage().getNum() == labyrinthe.getEtageCourant().getNum()) {
@@ -77,19 +98,31 @@ public class Dessin extends Canvas {
             }
         }
     }
-
+    
+    /**
+     * Dessine le fond du labyrinthe.
+     */
     public void dessinFond() {
         tampon.drawImage(solImage, 0, 0, unite * largeur,
                 unite * hauteur);
     }
-
+    
+    /**
+     * Dessine les salles du labyrinthes.
+     * @param etage étage auquel se trouve les salles.
+     */
     public void dessinSalles(IEtage etage) {
         for (ISalle s : etage) {
             Color c = Color.rgb(200, 200, 200);
             dessinSalle(s, c);
         }
     }
-
+    
+    /**
+     * Dessine une salle du labyrinthe.
+     * @param s une salle.
+     * @param c une couleur pour la salle.
+     */
     public void dessinSalle(ISalle s, Color c) {
         int x = s.getX();
         int y = s.getY();

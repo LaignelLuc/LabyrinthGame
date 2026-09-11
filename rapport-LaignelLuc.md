@@ -234,3 +234,6 @@ if(enDeplacement()){
 ```
 
 Donc si le sprite est toujours en mouvement, d'autres mouvements ne seront pas possible.
+
+## Séance 11
+Finalisation du projet, réalisation de la javadoc et re-lecture.

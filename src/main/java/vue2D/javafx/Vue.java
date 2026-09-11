@@ -13,11 +13,23 @@ import vue2D.sprites.ISprite;
  * @author INFO Professors team
  */
 public class Vue extends AVue implements IVue {
-
+    
+    /**
+     * Dessin du labyrinthe.
+     */
     Dessin dessin;
+    
+    /**
+     * Labyrinthe du jeu.
+     */
     ILabyrinthe labyrinthe;
+    
     public Scene scene;
-
+    
+    /**
+     * Constructeur de la vue du labyrinthe.
+     * @param labyrinthe labyrinthe du jeu.
+     */
     public Vue(ILabyrinthe labyrinthe) {
         this.labyrinthe = labyrinthe;
         dessin = new Dessin(labyrinthe, this);
@@ -25,7 +37,12 @@ public class Vue extends AVue implements IVue {
         this.scene = new Scene(root);
         root.getChildren().add(dessin);
     }
-
+    
+    /**
+     * Ajoute un sprite au labyrinthe.
+     * @param sprite le sprite à ajouter.
+     * @return si l'ajout est réussi.
+     */
     @Override
     public boolean add(ISprite sprite) {
         super.add(sprite);
@@ -35,7 +52,10 @@ public class Vue extends AVue implements IVue {
         }
         return true;
     }
-
+    
+    /**
+     * Appelle les fonctions permettant de dessiner le labyrinthe.
+     */
     @Override
     public void dessiner() {
         dessin.dessinFond();

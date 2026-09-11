@@ -3,43 +3,85 @@ package labyrinthe;
 import java.util.Objects;
 
 /**
- *
+ * Classe gérant les salles du labyrinthe.
  * @author llaignel
  */
 public class Salle implements ISalle {
-
+    
+    /**
+     * L'étage auquel se trouve la salle.
+     */
     private IEtage etage;
+    
+    /**
+     * Coordonnée X de la salle dans le labyrinthe.
+     */
     private int x;
+    /**
+     * Coordonnée Y de la salle du labyrinthe.
+     */
     private int y;
+    
+    /**
+     * Type de la salle.
+     */
     private ESalle type;
-
+    
+    /**
+     * Constructeur de l'objet salle.
+     * @param unEtage Etage de la salle.
+     * @param unX coordonnée X.
+     * @param unY coordonnée Y.
+     * @param unType Type de la salle.
+     */
     public Salle(IEtage unEtage, int unX, int unY, ESalle unType) {
         etage = unEtage;
         x = unX;
         y = unY;
         type = unType;
     }
-
+    
+    /**
+     * Getter de la coordonnée X de la salle.
+     * @return la coordonnée X.
+     */
     @Override
     public int getX() {
         return x;
     }
-
+    
+    /**
+     * Getter de la coordonnée Y de la salle.
+     * @return la coordonnée Y.
+     */
     @Override
     public int getY() {
         return y;
     }
-
+    
+    /**
+     * Getter pour le type de la salle.
+     * @return le type de la salle.
+     */
     @Override
     public ESalle getType() {
         return type;
     }
-
+    
+    /**
+     * Getter pour l'étage de la salle.
+     * @return l'étage de la salle.
+     */
     @Override
     public IEtage getEtage() {
         return etage;
     }
-
+    
+    /**
+     * Permet de savoir si une salle est adjacente à une autre.
+     * @param autre autre salle.
+     * @return si la salle est adjacente à l'autre salle.
+     */
     @Override
     public boolean estAdjacente(ISalle autre) {
         int autreX = autre.getX();

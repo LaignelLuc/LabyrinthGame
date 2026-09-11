@@ -8,17 +8,29 @@ import java.util.Collection;
 import labyrinthe.ISalle;
 
 /**
- *
+ * Personnage monstre du labyrinthe.
  * @author llaignel
  */
 public class Monstre extends APersonnage{
     
+    /**
+     * Salle choisie par le monstre.
+     */
     private ISalle salleChoisie;
-
+    
+    /**
+     * Constructeur de l'objet monstre.
+     * @param uneSalle 
+     */
     public Monstre(ISalle uneSalle) {
         position = uneSalle;
     }
     
+    /**
+     * Met a jour la position du monstre si la salle choisie est une salle accessibles.
+     * @param sallesAccessibles liste des salles accessibles.
+     * @return la position du monstre.
+     */
     @Override
     public ISalle faitSonChoix(Collection<ISalle> sallesAccessibles) {
         if (salleChoisie != null) {
@@ -32,6 +44,10 @@ public class Monstre extends APersonnage{
         return position;
     }
     
+    /**
+     * Change la salle choisie par le monstre.
+     * @param salle la nouvelle salle.
+     */
     public void setSalleChoisie(ISalle salle) {
         salleChoisie = salle;
     }

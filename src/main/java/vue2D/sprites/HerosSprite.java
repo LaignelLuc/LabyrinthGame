@@ -11,29 +11,59 @@ import labyrinthe.ISalle;
 import labyrinthe.Salle;
 import personnages.Heros;
 
+/**
+ * Classe gérant le sprite du héros
+ * @author llaignel
+ */
 public class HerosSprite extends ASprite implements EventHandler<KeyEvent> {
-
+    /**
+     * Héros associé au sprite.
+     */
     private Heros hero;
+    
+    /**
+     * Labyrinthe du jeu.
+     */
     private ILabyrinthe labyrinthe;
-
+    
+    
+    /**
+     * Constructeur pour le sprite du héros.
+     * @param hero heros lié au sprite.
+     * @param labyrinthe labyrinthe lié au jeu.
+     */
     public HerosSprite(Heros hero, ILabyrinthe labyrinthe) {
         super(hero, new Image("file:icons/link/LinkRunShieldD1.gif"));
         this.hero = hero;
         this.labyrinthe = labyrinthe;
     }
-
+    
+    /**
+     * Override changeant la position du sprite dans le labyrinthe.
+     * @param nouvellePos nouvelle position du sprite.
+     */
     @Override
     public void setPosition(ISalle nouvellePos) {
         this.hero.setPosition(nouvellePos);
     }
-
+    
+    /**
+     * Override donnant la position du sprite dans labyrinthe.
+     * @return la position du sprite du héros.
+     */
     @Override
     public ISalle getPosition() {
         return this.hero.getPosition();
     }
-
+    
+    /**
+     * Choix de salle pour le déplacement du héros.
+     * @param sallesAccessibles liste des salles accessibles au héros.
+     * @return la nouvelle position du sprite du héros.
+     */
     @Override
     public ISalle faitSonChoix(Collection<ISalle> sallesAccessibles) {
+        //Empêche le déplacement tant que le sprite est en animation.
         if(enDeplacement()){
             return getPosition();
         }
@@ -43,7 +73,11 @@ public class HerosSprite extends ASprite implements EventHandler<KeyEvent> {
         }
         return nouvellePos;
     }
-
+    
+    /**
+     * Fonction permettant la navigation du sprite à l'aide du clavier.
+     * @param event Quand l'utilisateur appuie sur une touche du clavier.
+     */
     @Override
     public void handle(KeyEvent event) {
         if (event.getCode() == null) {

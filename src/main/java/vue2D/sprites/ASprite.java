@@ -17,15 +17,40 @@ import static vue2D.AVue.UNITE;
  * @author llaignel
  */
 public abstract class ASprite implements ISprite{
+    
+    /**
+     * Image du sprite.
+     */
     private Image sprite;
+    
+    /**
+     * Personnage (héros ou monstre).
+     */
     private IPersonnage personnage;
     
+    /**
+     * Coordonnée x de la salle actuelle du sprite.
+     */
     private int xPixCourant = -1;
+    
+    /**
+     * Coordonnée y de la salle actuelle du sprite.
+     */
     private int yPixCourant = -1;
     
+    /**
+     * Coordonnée x de la salle cible du sprite.
+     */
     private int xPixCible;
+    
+    /**
+     * Coordonnée x de la salle cible du sprite.
+     */
     private int yPixCible;
     
+    /**
+     * Le pas en pixel pour l'animation du déplacement.
+     */
     private static final int PAS = 2;
     
     public ASprite(IPersonnage personnage,Image sprite){
@@ -33,12 +58,19 @@ public abstract class ASprite implements ISprite{
         this.personnage = personnage;
     }
     
+    /**
+     * Dessine le sprite et l'anime.
+     * @param g 
+     */
     @Override
     public void dessiner(GraphicsContext g){
         mouvement();
         g.drawImage(sprite, xPixCourant, yPixCourant,UNITE,UNITE);
     }
     
+    /**
+     * Permet de calculer et mettre en place l'animation du sprite lors d'un mouvement.
+     */
     public void mouvement(){
         ISalle positionPerso = this.getPosition();
         xPixCible = positionPerso.getX() * UNITE;
@@ -76,11 +108,19 @@ public abstract class ASprite implements ISprite{
         }
     }
     
+    /**
+     * Renvoie si le sprite est en mouvement.
+     * @return true si le sprite bouge encore, false sinon. 
+     */
     public boolean enDeplacement(){
         return xPixCourant != xPixCible || yPixCourant != yPixCible;
     }
     
-    
+    /**
+     * Donnes des nouvelles coordonnées au sprite.
+     * @param xpix position x.
+     * @param ypix position y.
+     */
     @Override
     public void setCoordonnees(int xpix, int ypix){
         ISalle positionPerso = this.getPosition();

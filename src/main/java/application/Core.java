@@ -17,9 +17,11 @@ import vue2D.sprites.MonstreSprite;
  * @author arpecher
  */
 public class Core {
-
-    ISprite heros;
+    
     ILabyrinthe labyrinthe;
+
+    // Entité du labyrinthe dont le héro
+    ISprite heros;
     ISprite monstre1;
     ISprite monstre2;
     ISprite monstre3;
@@ -31,19 +33,25 @@ public class Core {
     ISprite monstre9;
     ISprite monstre10;
     
-
+    /**
+     * Initialisation du labyrinthe.
+     */
     protected void initLabyrinthe() {
         // creation du labyrinthe
         labyrinthe = new labyrinthe.Labyrinthe();
     }
-
+    
+    /**
+     * Initialisation des sprites.
+     * @param vue vue du labyrinthe.
+     */
     protected void initSprites(IVue vue) {
         // creation du heros 
         Heros h = new personnages.Heros(labyrinthe.getEntree());
         this.heros = new HerosSprite(h, labyrinthe);
         vue.add(this.heros);
         
-        //creation de multiple monstre
+        // creation de multiple monstre
         ISalle salleInit1 = labyrinthe.getSalleAleatoire();
         ISalle salleInit2 = labyrinthe.getSalleAleatoire();
         ISalle salleInit3 = labyrinthe.getSalleAleatoire();
@@ -89,7 +97,11 @@ public class Core {
                 this.monstre5, this.monstre6, this.monstre7, this.monstre8,
                 this.monstre9, this.monstre10));
     }
-
+    
+    /**
+     * Fonction gérant le jeu.
+     * @param vue Vue du jeu.
+     */
     protected void jeu(IVue vue) {
         // boucle principale
         ISalle destination = null;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author INFO Professors team
  */
 public class Etage extends ArrayList<ISalle> implements IEtage {

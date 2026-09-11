@@ -17,3 +17,7 @@
 
 ## 8 Septembre 2026
 - Objectif 3 terminé
+
+## 9 Septembre 2026
+- Début de l'objectif 4
+- Exercice 17 terminé
