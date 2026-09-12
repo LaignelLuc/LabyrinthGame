@@ -28,9 +28,9 @@ public class Labyrinthe extends ArrayList<ISalle> implements ILabyrinthe {
         IEtage etage1 = new Etage(1);
         IEtage etage2 = new Etage(2);
         try {
-            etage1.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage1N.txt");
+            etage1.charger("etages/etage1N.txt");
             this.addAll(etage1);
-            etage2.charger("/mnt/netta/users/llaignel/Documents/projetRepriseS3/2026-projetreprise-laignelluc/etages/etage2N.txt");
+            etage2.charger("etages/etage2N.txt");
             this.addAll(etage2);
             etageCourant = etage1;
         } catch (Exception e) {

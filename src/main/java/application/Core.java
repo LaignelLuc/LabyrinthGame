@@ -1,6 +1,5 @@
 package application;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import labyrinthe.ILabyrinthe;
@@ -106,7 +105,6 @@ public class Core {
         // boucle principale
         ISalle destination = null;
         while (!labyrinthe.getSortie().equals(heros.getPosition())) {
-            // ajustement etage courant: celui du héros
             labyrinthe.setEtageCourant(heros.getPosition().getEtage());
             // choix et deplacements de chaque sprite
             for (ISprite s : vue) {
