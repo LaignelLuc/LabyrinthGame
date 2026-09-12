@@ -1,6 +1,5 @@
 package labyrinthe;
 
-import java.util.Objects;
 
 /**
  * Classe gérant les salles du labyrinthe.
